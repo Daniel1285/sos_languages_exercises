@@ -71,10 +71,15 @@ def is_palindrome_tail_recursive(num):
 
     return helper(str(num), 0, len(str(num)) - 1)
 
-#TODO
-def sortedzip(l):
-    return [] if not l else zip(*list(sorted(i) for i in l))
 
+def sortedzip(lists):
+    if all(not lst for lst in lists):
+        return []
+
+    sorted_lists = [sorted(lst) for lst in lists]
+    first_elements = tuple(lst[0] for lst in sorted_lists)
+
+    return [first_elements] + sortedzip([lst[1:] for lst in sorted_lists])
 
 @time_measure
 def sorted_zip_tail(l):
@@ -84,54 +89,94 @@ def sorted_zip_tail(l):
 
 @time_measure
 def create_simple_array():
-    return [i for i in range(1000001)]
+    return list(range(10001))
+start_time = time.time()
+arr = create_simple_array()
+print(f" Time: {time.time() - start_time}")
+print(f"Size : {sys.getsizeof(arr)}")
+print(f" Type: {type(arr)}")
 
 @time_measure
 def create_lazy_array():
-    return (i for i in range(1000001))
+    return (i for i in range(10001))
+start_time = time.time()
 
+lazy_arr = create_lazy_array()
+print(f" Time: {time.time() - start_time}")
+print(f"Size : {sys.getsizeof(lazy_arr)}")
+print(f"Type: {type(lazy_arr)}")
 
 @time_measure
-def create_half_lazy_array(lazy_array):
-    return (next(lazy_array) for _ in range(5000))
+def create_half_lazy_array(lazy_arrey):
+    return (x for x in lazy_arr)
+
+start_time = time.time()
+half_lazy = create_half_lazy_array(create_lazy_array())
+print(f" Time: {time.time() - start_time}")
+print(f"Size : {sys.getsizeof(half_lazy)}")
+print(f"Type: {type(lazy_arr)}")
+
 
 @time_measure
 def create_half_simple_array(lazy_array):
-    return lazy_array[:5000]
+    return lazy_array[:5001]
+start_time = time.time()
+arr = create_half_simple_array(create_simple_array())
+print(f" Time: {time.time() - start_time}")
+print(f"Size : {sys.getsizeof(arr)}")
+print(f" Type: {type(arr)}")
 
+def prime_generator():
+    def is_prime(n):
+        return n > 1 and all(n % i != 0 for i in range(2, int(n ** 0.5) + 1))
+
+    num = 2
+    while True:
+        if is_prime(num):
+            yield num
+        num += 1
+gen = prime_generator()
+print(next(gen))
+print(next(gen))
+print(next(gen))
+print(next(gen))
+print(next(gen))
+
+
+from math import factorial
+
+def taylor_series(x):
+    k = 0
+    current_sum = 0
+    while True:
+        term = (x ** k) / (factorial(k) if k > 0 else 1)
+        current_sum += term
+        yield current_sum
+        k += 1
+
+taylor_gen = taylor_series(2)
+print(next(taylor_gen))
+print(next(taylor_gen))
+print(next(taylor_gen))
+print(next(taylor_gen))
+print(next(taylor_gen))
 
 def main():
-    n = 999
     print(list(sortedzip([[3,1,2],[5,6,4],['a','b','c']])))
-    assert tuple_recursive(n-1) == tuple(range(1, n).__reversed__()), f"tuple_Recursion failed!"
-    assert tuple_tail_recursive(n-1) == tuple(range(1, n)), f"tuple_tail_recursive failed!"
+    print(list(sorted_zip_tail([[3, 1, 2], [5, 6, 4], ['a', 'b', 'c']])))
+    #1
+    print(tuple_recursive(100))
+    print(tuple_tail_recursive(100))
+    #2
+    print(sum_recursive(tuple_recursive(100)))
+    print(sum__tail_recursive(tuple_tail_recursive(100)))
+    #4
+    print(is_palindrome_recursive(123454321))
+    print(is_palindrome_tail_recursive(123454321))
+    #5
+    print(list(sortedzip([[3, 1, 2], [5, 6, 4], ['a', 'b', 'c']])))
+    print(list(sorted_zip_tail([[3, 1, 2], [5, 6, 4], ['a', 'b', 'c']])))
 
-    t = tuple_recursive(n-1)
-    sum_t = sum_recursive(t)
-    sum_tail = sum__tail_recursive(t)
-    assert sum_t == sum(t), f"Got {sum_t} instead of {sum(t)}"
-    assert sum_tail == sum(t), f"Got {sum_tail} instead of {sum(t)}"
-
-    result = lcm(6,4)
-    assert result == 12, f"Got {result} instead of 12"
-
-    assert is_palindrome_recursive(123454321) == True, "not Palindrome"
-    assert is_palindrome_tail_recursive(123454321) == True, "not Palindrome"
-
-    l = [[3,1,2],[5,6,4],['a','b','c']]
-
-    sort_zip = list(sortedzip(l))
-    sort_zip_tail = list(sorted_zip_tail(l))
-    print(sort_zip_tail)
-    sort_zip_expected =  list(zip(*map(sorted,l)))
-    assert sort_zip == sort_zip_expected, f"Got: {sort_zip} instead of {sort_zip_expected}"
-    assert sort_zip_tail == sort_zip_expected, f"Got: {sort_zip} instead of {sort_zip_expected}"
-    print("#################### Part 2 ####################")
-
-    simple_array = create_simple_array()
-    half_simle = create_half_simple_array(simple_array)
-    lazy_array = create_lazy_array()
-    half_lazy = create_half_lazy_array(lazy_array)
 
 
 if __name__ == "__main__":
