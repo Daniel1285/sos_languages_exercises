@@ -9,7 +9,6 @@ import math
 import time
 
 
-
 def time_measure(func):
     @wraps(func)
     def timeit_wrapper(*args, **kwargs):
@@ -99,9 +98,6 @@ def main():
     print(f"sum of y_even = {sum(y_even)}")
     print(f"sum of y_odd = {sum(y_odd)}")
 
-
-
-
 #Question 3
     # Test for generate_dates
     expected_dates = ["01-01-2024", "03-01-2024", "05-01-2024"]
@@ -146,7 +142,6 @@ def main():
     assert tasks["Homework"] == "incomplete", f"Test failed: {tasks}"
 
     print("All tests passed!")
-
 
 if __name__ == "__main__":
     main()
