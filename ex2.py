@@ -73,6 +73,7 @@ def task_manager():
 
 
 def main():
+# Question 1
     lst = list(map(lambda x: 2 * x + 2, range(10)))
 
     assert imperative_sum(lst) == 110, "imperative_sum failed"
@@ -83,10 +84,26 @@ def main():
     # Test for all_in_one
     assert all_in_one() == 100010000, "all_in_one failed"
 
+#Question 2
+    numbers = list(range(1, 1000))
+
+    even = [i for i in numbers if i%2 == 0]
+    odd =  [i for i in numbers if i%2!=0]
+    iter_odd = iter(odd[1:]) # No need for the first member
+    y_even = [reduce(lambda a,b: a*b, even[:i]) for i in range(2,len(even)+1)]
+    y_odd = list(map(lambda x:x/2+2+next(iter_odd), odd))
+
+    print(f"y_even: {y_even}")
+    print(f"y_odd = {y_odd}")
+    print(f"sum of y_even = {sum(y_even)}")
+    print(f"sum of y_odd = {sum(y_odd)}")
+
+#Question 3
     # Test for generate_dates
     expected_dates = ["01-01-2024", "03-01-2024", "05-01-2024"]
     assert generate_dates("01-01-2024", 3, 2) == expected_dates, "generate_dates failed"
 
+#Question 4
     # Test for power_function
     power_of_2 = power_function(2)
     assert power_of_2(3) == 9, "power_function(2) failed for base 3"
@@ -102,6 +119,7 @@ def main():
     expected_value = sum([1 / math.factorial(i) for i in range(6)])  # e^1 = 1 + 1/1! + 1/2! + ... + 1/5!
     assert math.isclose(approx, expected_value, rel_tol=1e-4), "taylor_approximation failed for e^1"
 
+#Question 5
     # Test for tasks_manager
     tasks_manager = task_manager()
 
@@ -124,7 +142,6 @@ def main():
     assert tasks["Homework"] == "incomplete", f"Test failed: {tasks}"
 
     print("All tests passed!")
-
 
 if __name__ == "__main__":
     main()
