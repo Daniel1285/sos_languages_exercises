@@ -1,8 +1,3 @@
-"""
-Daniel Shalom cohen - 212991749
-Natan Stern - 322879255
-"""
-
 from functools import reduce, wraps
 from datetime import datetime, timedelta
 import math

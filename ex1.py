@@ -1,9 +1,3 @@
-"""
-Daniel Shalom cohen - 212991749
-Natan Stern - 322879255
-"""
-
-
 # Question 1
 def getPentaNum(n):
     return n * (3 * n - 1) // 2
@@ -21,9 +15,10 @@ def sumDigit(n):
 # Question 3
 def gematriaVal(str_key):
     g = {'א': 1, 'ב': 2, 'ג': 3, 'ד': 4, 'ה': 5, 'ו': 6, 'ז': 7, 'ח': 8, 'ט': 9, 'י': 10, 'כ': 20,
-         'ל': 30, 'מ': 40, 'נ': 50, 'ס': 60, 'ע': 70, 'פ': 80, 'צ': 90, 'ק': 100, 'ר': 200, 'ש': 300, 'ת': 400
+         'ל': 30, 'מ': 40, 'נ': 50, 'ס': 60, 'ע': 70, 'פ': 80, 'צ': 90, 'ק': 100, 'ר': 200, 'ש': 300, 'ת': 400,
+         'ך': 20, 'ם': 40, 'ן': 50, 'ף': 80, 'ץ':90
          }
-    return sum([g[i] for i in str_key])
+    return sum(g[i] for i in str_key)
 
 
 # Question 4
@@ -77,8 +72,8 @@ def main():
     assert sumDigit(98765) == 35
 
     # Test gematriaVal
-    assert gematriaVal('אב') == 3
-    assert gematriaVal('שבת') == 702
+    assert gematriaVal('דניאל') == 95
+    assert gematriaVal('כהן') == 75
 
     # Test isPrime
     assert isPrime(2) is True
@@ -99,6 +94,7 @@ def main():
     numbers = [1, 2, 3]
     functions = [multiply_by_2, square, inverse]
     result = apply_functions(numbers, functions)
+    print(result)
     assert result['multiply_by_2'] == [2, 4, 6]
     assert result['square'] == [1, 4, 9]
     assert result['inverse'] == [1.0, 0.5, 0.3333333333333333]

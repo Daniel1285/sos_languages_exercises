@@ -1,8 +1,3 @@
-"""
-Daniel Shalom cohen - 212991749
-Natan Stern - 322879255
-"""
-
 import time
 import sys
 import math
@@ -54,10 +49,9 @@ def lcm(a, b):
 
 @time_measure
 def is_palindrome_recursive(num):
-    num = str(num)
     if len(str(num)) <=1:
         return True
-    return False if num[0] != num[-1] else is_palindrome_recursive(num[1:-1])
+    return False if str(num)[0] != str(num)[-1] else is_palindrome_recursive(str(num)[1:-1])
 
 @time_measure
 def is_palindrome_tail_recursive(num):
@@ -90,41 +84,25 @@ def sorted_zip_tail(l):
 @time_measure
 def create_simple_array():
     return list(range(10001))
-start_time = time.time()
-arr = create_simple_array()
-print(f" Time: {time.time() - start_time}")
-print(f"Size : {sys.getsizeof(arr)}")
-print(f" Type: {type(arr)}")
+
 
 @time_measure
 def create_lazy_array():
     return (i for i in range(10001))
-start_time = time.time()
-
-lazy_arr = create_lazy_array()
-print(f" Time: {time.time() - start_time}")
-print(f"Size : {sys.getsizeof(lazy_arr)}")
-print(f"Type: {type(lazy_arr)}")
 
 @time_measure
-def create_half_lazy_array(lazy_arrey):
+def create_half_lazy_array(lazy_arr):
     return (x for x in lazy_arr)
-
-start_time = time.time()
-half_lazy = create_half_lazy_array(create_lazy_array())
-print(f" Time: {time.time() - start_time}")
-print(f"Size : {sys.getsizeof(half_lazy)}")
-print(f"Type: {type(lazy_arr)}")
-
 
 @time_measure
 def create_half_simple_array(lazy_array):
     return lazy_array[:5001]
-start_time = time.time()
-arr = create_half_simple_array(create_simple_array())
-print(f" Time: {time.time() - start_time}")
-print(f"Size : {sys.getsizeof(arr)}")
-print(f" Type: {type(arr)}")
+
+
+arr = create_simple_array()
+lazy_arr = create_lazy_array()
+half_arr = create_half_simple_array(arr)
+half_lazy = create_half_lazy_array(lazy_arr)
 
 def prime_generator():
     def is_prime(n):
@@ -136,6 +114,7 @@ def prime_generator():
             yield num
         num += 1
 gen = prime_generator()
+
 print(next(gen))
 print(next(gen))
 print(next(gen))
